@@ -1,0 +1,1091 @@
+﻿// JScript File
+document.addEventListener('DOMContentLoaded', function () {
+    //sayfa yüklendiğinde recaptcha importunu head'e element olarak ekle
+    var recaptchaSourceScriptElement = document.createElement('script');
+    recaptchaSourceScriptElement.setAttribute('src', 'https://www.google.com/recaptcha/api.js');
+    recaptchaSourceScriptElement.setAttribute('type', 'text/javascript');
+    document.head.appendChild(recaptchaSourceScriptElement);
+});
+
+//GENEL FONKSIYONLAR
+function f_SessionEnd_GotoLoginPage(mesaj) {
+    if (mesaj != null) {
+        alert(mesaj);        
+    }
+    window.location.href = "../login.aspx";
+//    window.location.href = "/login.aspx";
+}
+
+function f_Alert_GotoDefaultPage(mesaj) {
+    if (mesaj != null) {
+        alert(mesaj);
+    }
+    window.location.href = "../default.aspx";
+    //    window.location.href = "/login.aspx";
+}
+
+function OpenPopUpWindow(sURL, iWidth, iHeight) {
+    var YeniPencere = window.open(sURL, 'yenipencere', 'resizable=yes,scrollbars=yes,status=no,width=' + iWidth + ' ,height=' + iHeight)
+    //window.location.href = sURL;
+}
+function fMesaj(mesaj) {
+    alert(mesaj);
+    return false;
+}
+
+function f_Onayla(s) {
+    var newstring = new String(s);
+    if (confirm(newstring)) {
+        return true;
+    }
+    return false;
+}
+
+function Open_Ana_Menu() {
+    var height = screen.height;
+    var width = screen.width;
+    var anamenu = window.open('default.aspx', 'anamenu', 'resizable=yes,scrollbars=yes,status=no,width=' + width + ' ,height=' + height)
+    //anamenu.opener = window;
+}
+
+
+//**
+function saatgoster() {
+    Stamp = new Date();
+    var Hours;
+    var Minutes;
+    var Seconds;
+    var Time;
+    Hours = Stamp.getHours();
+    Minutes = Stamp.getMinutes();
+    Seconds = Stamp.getSeconds();
+    if (Seconds.length == 0)
+        Seconds = "0" + Seconds;
+    Time = Stamp.toLocaleTimeString();
+    var saatlabel = document.getElementById("lblsaat");
+    saatlabel.innerText = Time;
+    setTimeout("saatgoster()", 1000);
+}
+
+//**
+function tarihgoster() {
+    Stamp = new Date();
+    var Tarih;
+    Tarih = Stamp.toLocaleDateString();
+    var saatlabel = document.getElementById("lbltarih");
+    saatlabel.innerText = Tarih;
+}
+
+
+//**
+
+
+
+function f_SBE_Kayit_Kredi_Toplami(iRow, iFazla_Iki_Ders) {
+
+////    
+
+    try {
+
+        var grd = MyGetElementById('grdYeni_Dersler');
+        var chk_Sec = MyGetElementById('grdYeni_Dersler_chkSec_' + iRow);
+        
+        var iToplam;
+        iToplam = 0;
+
+        for (i = 0; i < grd.rows.length - 2; i++) {
+            var chk = MyGetElementById('grdYeni_Dersler_chkSec_' + i);
+
+            if (chk.checked == true) {
+
+                var Kredi = MyGetElementById('grdYeni_Dersler_lblKREDI_' + i);
+
+                iToplam += parseInt(Kredi.innerText);
+            }
+          
+        }
+
+        if (iFazla_Iki_Ders == 1) {
+                   
+            if (iToplam > 6) {
+                chk_Sec.checked = false;
+                alert('BİTİRME PROJESİ İLE BİRLİKTE EN FAZLA TOPLAM 6 KREDİLİK DERS ALABİLİRSİNİZ.');
+            }
+
+        }
+        else {
+
+            if (iToplam > 18) {
+            chk_Sec.checked = false;
+            alert('EN FAZLA TOPLAM 18 KREDİLİK DERS ALABİLİRSİNİZ.');
+            }
+
+        }
+
+
+        
+
+  }
+    catch (err) {
+        alert(err);
+    }
+
+}
+
+
+function f_ENS_Kayit_Kredi_Toplami(iRow, iDonem_Prj_Almis) {
+
+    ////    
+
+    try {
+
+        var grd = MyGetElementById('grdYeni_Dersler');
+        var chk_Sec = MyGetElementById('grdYeni_Dersler_chkSec_' + iRow);
+
+        var iToplam;
+        iToplam = 0;
+
+        for (i = 0; i < grd.rows.length - 2; i++) {
+            var chk = MyGetElementById('grdYeni_Dersler_chkSec_' + i);
+
+            if (chk.checked == true) {
+
+                var Kredi = MyGetElementById('grdYeni_Dersler_lblAKTS_' + i);
+
+                iToplam += parseInt(Kredi.innerText);
+            }
+
+        }
+
+        ////   ümit hoca değiştirdi. 18.04.2018 2017-2018 YAZ KAYITTAN ÖNCE
+        //if (iDonem_Prj_Almis == 1) {
+
+        //    if (iToplam > 12) {
+        //        chk_Sec.checked = false;
+        //        alert('DÖNEM PROJESİ İLE BİRLİKTE EN FAZLA TOPLAM 12 KREDİLİK DERS ALABİLİRSİNİZ.');
+        //    }
+
+        //}
+        //else {
+
+        //    if (iToplam > 18) {
+        //        chk_Sec.checked = false;
+        //        alert('EN FAZLA TOPLAM 18 KREDİLİK DERS ALABİLİRSİNİZ.');
+        //    }
+
+        //}
+
+
+        if (iToplam > 45) {
+            chk_Sec.checked = false;
+            alert('EN FAZLA TOPLAM 45 AKTS LİK DERS ALABİLİRSİNİZ.');
+        }
+
+
+
+    }
+    catch (err) {
+        alert(err);
+    }
+
+}
+
+
+
+
+function f_Mandatory_Guzel_On_kayit_dialog(rdName) {
+
+    try {
+
+        var rdG1 = MyGetElementById("rdG_1");
+        var rdT1 = MyGetElementById("rdT_1");
+        var rdI1 = MyGetElementById("rdI_1");
+        var rdM1 = MyGetElementById("rdM_1");
+
+        var rdG2 = MyGetElementById("rdG_2");
+        var rdT2 = MyGetElementById("rdT_2");
+        var rdI2 = MyGetElementById("rdI_2");
+        var rdM2 = MyGetElementById("rdM_2");
+
+        var rdG3 = MyGetElementById("rdG_3");
+        var rdT3 = MyGetElementById("rdT_3");
+        var rdI3 = MyGetElementById("rdI_3");
+        var rdM3 = MyGetElementById("rdM_3");
+
+        var rdG4 = MyGetElementById("rdG_4");
+        var rdT4 = MyGetElementById("rdT_4");
+        var rdI4 = MyGetElementById("rdI_4");
+        var rdM4 = MyGetElementById("rdM_4");
+
+
+        if (rdName == 'rdG_1') {
+            rdT1.checked = false
+            rdI1.checked = false
+            rdM1.checked = false
+        }
+        
+        if (rdName == 'rdT_1') {
+            rdG1.checked = false
+            rdI1.checked = false
+            rdM1.checked = false
+        }
+        
+        if (rdName == 'rdI_1') {
+            rdG1.checked = false
+            rdT1.checked = false
+            rdM1.checked = false
+        }
+        
+        if (rdName == 'rdM_1') {
+            rdG1.checked = false
+            rdT1.checked = false
+            rdI1.checked = false
+        }
+
+        //**********************************************************
+        if (rdName == 'rdG_2') {
+            rdT2.checked = false
+            rdI2.checked = false
+            rdM2.checked = false
+        }
+
+        if (rdName == 'rdT_2') {
+            rdG2.checked = false
+            rdI2.checked = false
+            rdM2.checked = false
+        }
+
+        if (rdName == 'rdI_2') {
+            rdG2.checked = false
+            rdT2.checked = false
+            rdM2.checked = false
+        }
+
+        if (rdName == 'rdM_2') {
+            rdG2.checked = false
+            rdT2.checked = false
+            rdI2.checked = false
+        }
+
+        //**********************************************************
+        if (rdName == 'rdG_3') {
+            rdT3.checked = false
+            rdI3.checked = false
+            rdM3.checked = false
+        }
+
+        if (rdName == 'rdT_3') {
+            rdG3.checked = false
+            rdI3.checked = false
+            rdM3.checked = false
+        }
+
+        if (rdName == 'rdI_3') {
+            rdG3.checked = false
+            rdT3.checked = false
+            rdM3.checked = false
+        }
+
+        if (rdName == 'rdM_3') {
+            rdG3.checked = false
+            rdT3.checked = false
+            rdI3.checked = false
+        }
+
+
+        //**********************************************************
+        if (rdName == 'rdG_4') {
+            rdT4.checked = false
+            rdI4.checked = false
+            rdM4.checked = false
+        }
+
+        if (rdName == 'rdT_4') {
+            rdG4.checked = false
+            rdI4.checked = false
+            rdM4.checked = false
+        }
+
+        if (rdName == 'rdI_4') {
+            rdG4.checked = false
+            rdT4.checked = false
+            rdM4.checked = false
+        }
+
+        if (rdName == 'rdM_4') {
+            rdG4.checked = false
+            rdT4.checked = false
+            rdI4.checked = false
+        }
+
+    }
+    catch (err) {
+        alert(err);
+    }
+
+}
+
+
+
+
+function f_On_Kayit_chekbox(chkName) {
+
+    try {
+
+        var rdG1 = MyGetElementById("rdG_1");
+        var rdT1 = MyGetElementById("rdT_1");
+        var rdI1 = MyGetElementById("rdI_1");
+        var rdM1 = MyGetElementById("rdM_1");
+
+        var rdG2 = MyGetElementById("rdG_2");
+        var rdT2 = MyGetElementById("rdT_2");
+        var rdI2 = MyGetElementById("rdI_2");
+        var rdM2 = MyGetElementById("rdM_2");
+
+        var rdG3 = MyGetElementById("rdG_3");
+        var rdT3 = MyGetElementById("rdT_3");
+        var rdI3 = MyGetElementById("rdI_3");
+        var rdM3 = MyGetElementById("rdM_3");
+
+        var rdG4 = MyGetElementById("rdG_4");
+        var rdT4 = MyGetElementById("rdT_4");
+        var rdI4 = MyGetElementById("rdI_4");
+        var rdM4 = MyGetElementById("rdM_4");
+
+        var chkGrafik = MyGetElementById("chkGrafik");
+        var chkIletisim = MyGetElementById("chkIletisim");
+        var chkModa = MyGetElementById("chkModa");
+        var chkIc_Mimar = MyGetElementById("chkIc_Mimar");
+
+
+            if (chkName == 'chkGrafik') {
+
+                    rdG1.checked = false
+                    rdG2.checked = false
+                    rdG3.checked = false
+                    rdG4.checked = false
+
+                    if (chkGrafik.checked == true) {
+                        rdG1.disabled = false
+                        rdG2.disabled = false
+                        rdG3.disabled = false
+                        rdG4.disabled = false
+                    }
+                    else {
+                        rdG1.disabled = true
+                        rdG2.disabled = true
+                        rdG3.disabled = true
+                        rdG4.disabled = true                 
+                    }       
+            }
+
+            if (chkName == 'chkIletisim') {
+
+                    rdT1.checked = false
+                    rdT2.checked = false
+                    rdT3.checked = false
+                    rdT4.checked = false
+
+                    if (chkIletisim.checked == true) {
+                        rdT1.disabled = false
+                        rdT2.disabled = false
+                        rdT3.disabled = false
+                        rdT4.disabled = false
+                    }
+                    else {
+                        rdT1.disabled = true
+                        rdT2.disabled = true
+                        rdT3.disabled = true
+                        rdT4.disabled = true
+                    }
+            }
+
+
+             if (chkName == 'chkIc_Mimar') {
+
+                rdI1.checked = false
+                rdI2.checked = false
+                rdI3.checked = false
+                rdI4.checked = false
+
+                if (chkIc_Mimar.checked == true) {
+                    rdI1.disabled = false
+                    rdI2.disabled = false
+                    rdI3.disabled = false
+                    rdI4.disabled = false
+                }
+                else {
+                    rdI1.disabled = true
+                    rdI2.disabled = true
+                    rdI3.disabled = true
+                    rdI4.disabled = true
+                }
+            }
+
+           
+
+            if (chkName == 'chkModa') {
+
+                rdM1.checked = false
+                rdM2.checked = false
+                rdM3.checked = false
+                rdM4.checked = false
+
+                if (chkModa.checked == true) {
+                    rdM1.disabled = false
+                    rdM2.disabled = false
+                    rdM3.disabled = false
+                    rdM4.disabled = false
+                }
+                else {
+                    rdM1.disabled = true
+                    rdM2.disabled = true
+                    rdM3.disabled = true
+                    rdM4.disabled = true
+                }
+            }
+
+         }
+         catch (err) {
+             alert(err);
+         }
+
+}
+
+
+function f_Mandatory_dialog_enabled() {
+
+    try {
+
+        var rdG1 = MyGetElementById("rdG_1");
+        var rdT1 = MyGetElementById("rdT_1");
+        var rdI1 = MyGetElementById("rdI_1");
+        var rdM1 = MyGetElementById("rdM_1");
+
+        var rdG2 = MyGetElementById("rdG_2");
+        var rdT2 = MyGetElementById("rdT_2");
+        var rdI2 = MyGetElementById("rdI_2");
+        var rdM2 = MyGetElementById("rdM_2");
+
+        var rdG3 = MyGetElementById("rdG_3");
+        var rdT3 = MyGetElementById("rdT_3");
+        var rdI3 = MyGetElementById("rdI_3");
+        var rdM3 = MyGetElementById("rdM_3");
+
+        var rdG4 = MyGetElementById("rdG_4");
+        var rdT4 = MyGetElementById("rdT_4");
+        var rdI4 = MyGetElementById("rdI_4");
+        var rdM4 = MyGetElementById("rdM_4");
+
+
+        rdG1.disabled = true
+        rdG2.disabled = true
+        rdG3.disabled = true
+        rdG4.disabled = true
+
+        rdT1.disabled = true
+        rdT2.disabled = true
+        rdT3.disabled = true
+        rdT4.disabled = true
+
+        rdI1.disabled = true
+        rdI2.disabled = true
+        rdI3.disabled = true
+        rdI4.disabled = true
+
+        rdM1.disabled = true
+        rdM2.disabled = true
+        rdM3.disabled = true
+        rdM4.disabled = true
+       
+    }
+    catch (err) {
+        alert(err);
+    }
+
+
+
+}
+
+
+function MyGetElementById(sId) {
+    return document.all ? document.all[sId] : document.getElementById(sId);
+}
+
+
+function f_Ortalama_Hesapla(iRow, iSinav_Tur_Sw) {
+
+    try {
+        ////        alert(iRow);
+        var txtOdev = MyGetElementById('grdTanim_txtOdev_' + iRow);
+        var txtVize = MyGetElementById('grdTanim_txtVize_' + iRow);
+        var txtFinal = MyGetElementById('grdTanim_txtFinal_' + iRow);
+        var txtBut = MyGetElementById('grdTanim_txtButunleme_' + iRow);
+        var chkKatil_Final = MyGetElementById('grdTanim_chkKatilmadiFinal_' + iRow);
+        var chkKatil_Vize = MyGetElementById('grdTanim_chkKatilmadiVize_' + iRow);
+        var chkKatil_But = MyGetElementById('grdTanim_chkKatilmadiBut_' + iRow);
+        var lblBolum_Turu = MyGetElementById('grdTanim_lblFSBOLUM_TURU_ID_' + iRow);
+        var lblSinif_ID = MyGetElementById('grdTanim_lblFSINIF_ID_' + iRow);
+
+        if (chkKatil_Final.checked == true) {
+            txtFinal.value = '';
+        }
+
+        if (chkKatil_Vize.checked == true) {
+            txtVize.value = '';
+        }
+
+        if (chkKatil_But.checked == true) {
+            txtBut.value = '';
+        }
+
+
+        // not kontrol et
+        //*******************************************************************************************
+
+        if (iSinav_Tur_Sw == 0) {
+
+            if (isNumeric(txtOdev.value) == false) {
+                txtOdev.value = '';
+            }
+            else {
+
+                if (txtOdev.value < 0 || txtOdev.value > 100) {
+                    txtOdev.value = '';
+                }
+            }
+
+        }
+
+        if (iSinav_Tur_Sw == 1) {
+
+            if (isNumeric(txtVize.value) == false) {
+                txtVize.value = '';
+            }
+            else {
+
+                if (txtVize.value < 0 || txtVize.value > 100) {
+                    txtVize.value = '';
+                }
+            }
+
+        }
+
+
+        if (iSinav_Tur_Sw == 2) {
+
+            if (isNumeric(txtFinal.value) == false) {
+                txtFinal.value = '';
+            }
+            else {
+                if (txtFinal.value < 0 || txtFinal.value > 100) {
+                    txtFinal.value = '';
+                }
+            }
+
+        }
+
+
+        if (iSinav_Tur_Sw == 3) {
+
+            if (isNumeric(txtBut.value) == false) {
+                txtBut.value = '';
+            }
+            else {
+                if (txtBut.value < 0 || txtBut.value > 100) {
+                    txtBut.value = '';
+                }
+            }
+        }
+
+
+        //*******************************************************************************************
+
+        if (iSinav_Tur_Sw == 3) {
+
+            if (isNumeric(txtBut.value) == false) {
+                txtBut.value = '';
+            }
+            else {
+                if (txtBut.value < 0 || txtBut.value > 100) {
+                    txtBut.value = '';
+                }
+            }
+        }
+
+        var iOdev = txtOdev.value;
+        var iVize = txtVize.value;
+        var iFinal = txtFinal.value;
+        var iBut = txtBut.value;
+        var iMax_Final_But_Not;
+
+        //*******************************************************************************************
+        // final veya bütünleme notu önlisans-lisans 40 altı 0 ylisans 50 altı 0 doktora-sanatta yeterlilik 65
+        //*******************************************************************************************
+        if (lblBolum_Turu.innerText == 1 || lblBolum_Turu.innerText == 2) {
+            //önlisans lisans
+
+            if (lblFSDERS_KATEG_ID.innerText == 27) {
+                //DİŞ HEKİMLİĞİ DERSİ İSE 
+                iMax_Final_But_Not = 50;
+            }
+            else {
+                iMax_Final_But_Not = 40;
+            }
+           
+        }
+        else {
+
+            if (lblBolum_Turu.innerText == 3) {
+                //yüksek lisans
+
+                if (lblSinif_ID.innerText == 1) {
+                    iMax_Final_But_Not = 40;
+                }
+                else {
+
+                    iMax_Final_But_Not = 50;
+                }
+
+            }
+            else {
+
+                if (lblBolum_Turu.innerText == 8) {
+                    //doktora
+
+
+                    if (lblSinif_ID.innerText == 1) {
+                        iMax_Final_But_Not = 50;
+                    }
+                    else {
+
+                        iMax_Final_But_Not = 65;
+                    }
+
+
+
+                }
+
+            }
+
+        }
+
+
+
+        if (isNumeric(txtFinal.value) == true && txtFinal.value != '') {
+
+            if (txtFinal.value < iMax_Final_But_Not) {
+                iOdev = 0;
+                iVize = 0;
+                iFinal = 0;
+
+                MyGetElementById('grdTanim_txtFinal_' + iRow).parentNode.style.backgroundColor = "lightgreen";
+
+            }
+            else {
+
+                MyGetElementById('grdTanim_txtFinal_' + iRow).parentNode.style.backgroundColor = "LightSkyBlue";
+
+            }
+
+        }
+
+        if (chkKatil_Final.checked == true) {
+            iOdev = 0;
+            iVize = 0;
+            iFinal = 0;
+
+            MyGetElementById('grdTanim_txtFinal_' + iRow).parentNode.style.backgroundColor = "lightgreen";
+        }
+
+
+        if (isNumeric(txtBut.value) == true && txtBut.value != '') {
+
+            if (txtBut.value < iMax_Final_But_Not) {
+                iOdev = 0;
+                iVize = 0;
+                iFinal = 0;
+                iBut = 0;
+
+                MyGetElementById('grdTanim_txtButunleme_' + iRow).parentNode.style.backgroundColor = "lightgreen";
+
+            }
+            else {
+                //finalda 40 altı ama bütünleme değil se notları geri ver
+                iOdev = txtOdev.value;
+                iVize = txtVize.value;
+
+                MyGetElementById('grdTanim_txtButunleme_' + iRow).parentNode.style.backgroundColor = "LightSkyBlue";
+            }
+        }
+
+
+     
+
+
+        ////if (chkKatil_But.checked == true) {
+        ////    iOdev = 0;
+        ////    iVize = 0;
+        ////    iFinal = 0;
+        ////    iBut = 0;
+
+        ////    MyGetElementById('grdTanim_txtButunleme_' + iRow).parentNode.style.backgroundColor = "lightgreen";
+        ////}
+        ////else {
+        ////    //final katılmadı ama büte katıldı ve not 40 üstü ise notları geri ver
+
+        ////    if (isNumeric(txtBut.value) == true && txtBut.value != '') {
+
+        ////        if (txtBut.value < iMax_Final_But_Not) {
+
+        ////        } else {
+
+        ////            iOdev = txtOdev.value;
+        ////            iVize = txtVize.value;
+
+        ////        }
+
+
+        ////    }
+
+        ////}
+
+
+        //********************************************************************************************
+
+
+        //alert(txtOdev.value + txtVize.value + txtFinal.value + txtBut.value);
+
+        if (iOdev != null && iOdev != '') {
+            // bütünleme notu varsa ortalamayı ona göre hesapla
+            if (iBut != null && iBut != '') {
+                var Ortalama = ((iOdev * 10) / 100) + ((iVize * 30) / 100) + ((iBut * 60) / 100)
+                Ortalama = Ortalama.toFixed(1);
+                var lblOrtalama = MyGetElementById('grdTanim_lblAGIRLIKLI_ORTALAMA_' + iRow);
+                lblOrtalama.innerText = Ortalama;
+            }
+            else {
+
+                var Ortalama = ((iOdev * 10) / 100) + ((iVize * 30) / 100) + ((iFinal * 60) / 100)
+                Ortalama = Ortalama.toFixed(1);
+                var lblOrtalama = MyGetElementById('grdTanim_lblAGIRLIKLI_ORTALAMA_' + iRow);
+                lblOrtalama.innerText = Ortalama;
+            }
+
+
+        }
+        else {
+
+            if (iBut != null && iBut != '') {
+                var Ortalama = ((iVize * 40) / 100) + ((iBut * 60) / 100)
+                Ortalama = Ortalama.toFixed(1);
+                var lblOrtalama = MyGetElementById('grdTanim_lblAGIRLIKLI_ORTALAMA_' + iRow);
+                lblOrtalama.innerText = Ortalama;
+            }
+            else {
+                var Ortalama = ((iVize * 40) / 100) + ((iFinal * 60) / 100)
+                Ortalama = Ortalama.toFixed(1);
+                var lblOrtalama = MyGetElementById('grdTanim_lblAGIRLIKLI_ORTALAMA_' + iRow);
+                lblOrtalama.innerText = Ortalama;
+            }
+
+
+        }
+
+
+        var lblHarf = MyGetElementById('grdTanim_lblHARF_NOTU_' + iRow);
+        var harf_Notu;
+
+
+        if (Ortalama >= 89.5) {
+            harf_Notu = 'AA';
+        }
+        if (Ortalama >= 84.5 && Ortalama <= 89.4) {
+            harf_Notu = 'BA';
+        }
+        if (Ortalama >= 74.5 && Ortalama <= 84.4) {
+            harf_Notu = 'BB';
+        }
+        if (Ortalama >= 64.5 && Ortalama <= 74.4) {
+            harf_Notu = 'CB';
+        }
+        if (Ortalama >= 59.5 && Ortalama <= 64.4) {
+            harf_Notu = 'CC';
+        }
+        if (Ortalama >= 49.5 && Ortalama <= 59.4) {
+            harf_Notu = 'DC';
+        }
+        if (Ortalama >= 44.5 && Ortalama <= 49.4) {
+            harf_Notu = 'DD';
+        }
+        if (Ortalama >= 39.5 && Ortalama <= 44.4) {
+            harf_Notu = 'FD';
+        }
+        if (Ortalama >= 0 && Ortalama <= 39.4) {
+            harf_Notu = 'FF';
+        }
+
+        lblHarf.innerText = harf_Notu;
+
+       
+
+    }
+    catch (err) {
+        alert(err);
+    }
+
+
+}
+
+
+function f_Katil_Disabled(iRow, iSinav_Tur_Sw) {
+
+    try {
+
+        var txtVize = MyGetElementById('grdTanim_txtVize_' + iRow);
+        var txtFinal = MyGetElementById('grdTanim_txtFinal_' + iRow);
+        var txtBut = MyGetElementById('grdTanim_txtButunleme_' + iRow);
+        var chkKatil_Final = MyGetElementById('grdTanim_chkKatilmadiFinal_' + iRow);
+        var chkKatil_Vize = MyGetElementById('grdTanim_chkKatilmadiVize_' + iRow);
+        var chkKatil_But = MyGetElementById('grdTanim_chkKatilmadiBut_' + iRow);
+
+        if (iSinav_Tur_Sw == 1) {
+            if (chkKatil_Vize.checked == true) {
+                txtVize.value = '';
+                txtVize.setAttribute('disabled', 'disabled');
+            }
+            else {
+
+                txtVize.disabled = false;
+            }
+        }
+
+
+        if (iSinav_Tur_Sw == 2) {
+            if (chkKatil_Final.checked == true) {
+                txtFinal.value = '';
+                txtFinal.setAttribute('disabled', 'disabled');
+            }
+            else {
+
+                txtFinal.disabled = false;
+            }
+        }
+
+
+        if (iSinav_Tur_Sw == 3) {
+            if (chkKatil_But.checked == true) {
+                txtBut.value = '';
+                txtBut.setAttribute('disabled', 'disabled');
+            }
+            else {
+
+                txtBut.disabled = false;
+            }
+        }
+
+
+        f_Ortalama_Hesapla(iRow, iSinav_Tur_Sw)
+
+
+    }
+    catch (err) {
+        alert(err);
+    }
+
+}
+
+
+function f_Mandatory_Not(iRow, iSinav_Tur_Sw) {
+
+    try {
+
+        var txtOdev = MyGetElementById('grdTanim_txtOdev_' + iRow);
+        var txtVize = MyGetElementById('grdTanim_txtVize_' + iRow);
+        var txtFinal = MyGetElementById('grdTanim_txtFinal_' + iRow);
+        var txtBut = MyGetElementById('grdTanim_txtButunleme_' + iRow);
+        var chkKatil_Final = MyGetElementById('grdTanim_chkKatilmadiFinal_' + iRow);
+        var chkKatil_Vize = MyGetElementById('grdTanim_chkKatilmadiVize_' + iRow);
+        var chkKatil_But = MyGetElementById('grdTanim_chkKatilmadiBut_' + iRow);
+
+        if (iSinav_Tur_Sw == 0) {
+
+            if (isNumeric(txtOdev.value) == false) {
+                txtOdev.value = '';
+            }
+            else {
+
+                if (txtOdev.value < 0 || txtOdev.value > 100) {
+                    txtOdev.value = '';
+                }
+            }
+
+        }
+
+        if (iSinav_Tur_Sw == 1) {
+
+            if (isNumeric(txtVize.value) == false) {
+                txtVize.value = '';
+            }
+            else {
+
+                if (txtVize.value < 0 || txtVize.value > 100) {
+                    txtVize.value = '';
+                }
+            }
+
+        }
+
+
+        if (iSinav_Tur_Sw == 2) {
+
+            if (isNumeric(txtFinal.value) == false) {
+                txtFinal.value = '';
+            }
+            else {
+                if (txtFinal.value < 0 || txtFinal.value > 100) {
+                    txtFinal.value = '';
+                }
+            }
+
+        }
+
+
+        if (iSinav_Tur_Sw == 3) {
+
+            if (isNumeric(txtBut.value) == false) {
+                txtBut.value = '';
+            }
+            else {
+                if (txtBut.value < 0 || txtBut.value > 100) {
+                    txtBut.value = '';
+                }
+            }
+        }
+
+
+    }
+    catch (err) {
+        alert(err);
+    }
+
+}
+
+
+function f_text_leng(txt, lbl) {
+
+    var txt_ = MyGetElementById(txt);
+    var lbl_ = MyGetElementById(lbl);
+    var len = txt_.value.length;
+    lbl_.innerText = len
+}
+
+function isNumeric(val) {
+    var numeric = true;
+    var chars = "0123456789.";
+    var len = val.length;
+    var char = "";
+    for (i = 0; i < len; i++) { char = val.charAt(i); if (chars.indexOf(char) == -1) { numeric = false; } }
+    return numeric;
+}
+
+
+  function ButtonImage_Over(sBtnID)
+    {
+        var td = MyGetElementById(sBtnID);
+        td.style.background = "#FFCC00"
+    }
+
+    function ButtonImage_Out(sBtnID) {
+        var td = MyGetElementById(sBtnID);
+        td.style.background = "#465c71"
+    }
+
+
+/**
+ * Gönderilen elementin metninde sadece sayısal ifadeleri kabul eder.
+ * @param {any} element
+ */
+function fSadeceSayiYazilabilir(element) {
+    element.addEventListener("keyup", allowNumericOnly)
+    element.addEventListener("paste", allowNumericOnly)
+    element.addEventListener("change", allowNumericOnly)
+    element.addEventListener("click", allowNumericOnly)
+}
+function allowNumericOnly(evt) {
+    var txtElement = evt.srcElement;
+    txtElement.value = txtElement.value.replace(/\D+/g, '');// sadece sayı
+}
+
+/**
+ * Metin özelleştirme işlemleri için kullanılabileek ortak metod.
+ * @param {Element} txtElement TextBox elementi
+ * @param {Number} iBuyukKucukSw 1=büyük harf, 2=küçük harf
+ * @param {String} cBoslukYerineKarakter Boşluk yerine hangi karakter koyulması isteniyor ise eklenir örn : '_'
+ * @param {Boolean} bTurkceKarakterleriKaldir türkçe karakterleri latin harfe çevirsin mi ? true / false
+ */
+function fTextBoxMetinOzellestir(element, iBuyukKucukSw, cBoslukYerineKarakter, bTurkceKarakterleriKaldir) {
+    // iBuyukKucukSw => 0 birsey yapma, 1=BUYUK, 2=KUCUK
+    element.addEventListener("keyup", function (e) { fMetinOzellestir(element, iBuyukKucukSw, cBoslukYerineKarakter, bTurkceKarakterleriKaldir); });
+    element.addEventListener("paste", function (e) { fMetinOzellestir(element, iBuyukKucukSw, cBoslukYerineKarakter, bTurkceKarakterleriKaldir); });
+    element.addEventListener("change", function (e) { fMetinOzellestir(element, iBuyukKucukSw, cBoslukYerineKarakter, bTurkceKarakterleriKaldir); });
+    element.addEventListener("click", function (e) { fMetinOzellestir(element, iBuyukKucukSw, cBoslukYerineKarakter, bTurkceKarakterleriKaldir); });
+}
+
+/**
+ * Metin özelleştirme işlemleri için kullanılabileek ortak metod.
+ * @param {Element} txtElement TextBox elementi
+ * @param {Number} iBuyukKucukSw 1=büyük harf, 2=küçük harf
+ * @param {String} cBoslukYerineKarakter Boşluk yerine hangi karakter koyulması isteniyor ise eklenir örn : '_'
+ * @param {Boolean} bTurkceKarakterleriKaldir türkçe karakterleri latin harfe çevirsin mi ? true / false
+ */
+function fMetinOzellestir(txtElement, iBuyukKucukSw, cBoslukYerineKarakter, bTurkceKarakterleriKaldir) {
+    var str = txtElement.value;
+
+    switch (iBuyukKucukSw) {
+        case 1: // BÜYÜK HARF
+            str = str.toUpperCase();
+            break;
+        case 2: // küçük harf
+            str = str.toLowerCase();
+            break;
+    }
+
+    var charMap = [
+        ['Ç', 'C'], ['Ö', 'O'], ['Ş', 'S'], ['İ', 'I'], ['Ü', 'U'], ['Ğ', 'G'],
+        ['ç', 'c'], ['ö', 'o'], ['ş', 's'], ['ı', 'i'], ['ü', 'u'], ['ğ', 'g']];
+
+    var str_array = str.split('');
+    if (bTurkceKarakterleriKaldir == true) {
+        for (var i = 0; i < str_array.length; i++) {
+            for (var j = 0; j < charMap.length; j++) {
+                if (str_array[i] == charMap[j][0]) {
+                    str_array[i] = charMap[j][1]
+                }
+            }
+        }
+    }
+
+    str = str_array.join('');
+    var clearStr = str.replace(" ", cBoslukYerineKarakter)
+        .replace("-", cBoslukYerineKarakter)
+        .replace(/[^a-z0-9-.çöşüğı]/gi, cBoslukYerineKarakter)
+        .replace(cBoslukYerineKarakter + cBoslukYerineKarakter, cBoslukYerineKarakter)
+        .replace(cBoslukYerineKarakter + cBoslukYerineKarakter, cBoslukYerineKarakter)
+        .replace(cBoslukYerineKarakter, cBoslukYerineKarakter);
+
+    txtElement.value = clearStr
+}
+
+
+/**
+* Örnek kullanım: topluKomponentGizle('id1', 'id2', 'id3');
+* */
+function topluKomponentGizle() {
+    for (var i = 0; i < arguments.length; i++) {
+        var komponent = document.getElementById(arguments[i]);
+        if (komponent) {
+            komponent.style.display = "none";
+        }
+    }
+}

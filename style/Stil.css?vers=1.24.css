@@ -1,0 +1,213 @@
+﻿/* DEFAULTS
+----------------------------------------------------------*/
+
+body   
+{
+    /*background: #bebdbd;*/
+    font-size: .80em;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+   /* font-family: Arial, Helvetica;
+    font-family:"lucida grande", ", tahoma, verdana, arial, sans-serif";*/
+    margin: 0px;
+    padding: 0px;
+    color: #696969;
+}
+
+ 
+
+/* grid caption */
+.grdviewcaption 
+  {
+      text-align:center;
+      color:#ffffff;
+      background:#465c71;
+      font-weight:bold;
+	
+}
+
+  .grdviewcaption_print
+  {
+      text-align:center;
+      color:#ffffff;
+      background:#465c71;
+      font-weight:bold;
+  }
+
+.footer 
+  {
+      text-align:center;
+      color:#ffffff;
+      background:#465c71;
+      font-weight:bold;
+	
+}
+
+
+.header 
+  {
+      text-align:center;
+      color:#ffffff;
+      background:#2F4160;
+      font-weight:bold;
+	
+}
+
+
+.top_asc 
+  {
+      text-align:center;
+      color:#ffffff;
+      background:#465c71;
+      font-weight:bold;
+	
+}
+
+/* grid header sol */
+.grdviewheader table th {text-align:left;}
+
+.Header1{border:solid 1px #fff; padding:15px 15px 15px 35px; line-height:160%; display:block !important; }    
+    .Header1{background-color:#C91A1D;color:#fff; background-position:-141px -16px;}
+
+.Header2{border:solid 1px #fff; padding:15px 15px 15px 35px; line-height:160%; display:block !important; }
+    .Header2{background-color:#1774FF;color:#000;}
+
+
+ /*bildirimler*/   
+.tamam,.hata,.bilgi,.uyari{border:solid 1px #fff; padding:15px 15px 15px 35px; background: url('../img/oge-bildirim-peri.png') no-repeat; line-height:160%; display:block !important; }
+    .tamam{background-color:#70C208;color:#000; background-position:-171px 14px; }
+    .hata{background-color:#C91A1D;color:#fff; background-position:-141px -16px;}
+    .uyari{background-color:#FBA014;color:#000; background-position:-113px -48px;
+	height: 45px;
+}
+     .bilgi{background-color:#1774FF;color:#000; background-position:-83px -75px;}
+    
+ .orta  
+ {
+ vertical-align: middle;
+ }
+ 
+  .baslik{background-color:#FBE014;color:#000; background-position:-113px -48px;	height: 45px;
+}
+ 
+ /* MISC  
+----------------------------------------------------------*/
+
+.fnt_5{font-size:5px;}
+.fnt_7{font-size:7px;}
+.fnt_8{font-size:8px;}
+.fnt_9{font-size:9px;}
+.fnt_10{font-size:12px;font-weight:normal;}
+.fnt_11{font-size:11px;}
+.fnt_12{font-size:12px;}
+.fnt_14{font-size:14px;}
+.fnt_16{font-size:16px;}
+.fnt_18{font-size:18px;}
+.fnt_20{font-size:20px;}
+.fnt_24{font-size:24px;}
+.fnt_48{font-size:48px;}
+
+
+.fnt_clr_wht{color:White;}
+.fnt_clr_liteblue{color:#57cde7;}
+.fnt_clr_liteblue2{color:#d5f2f9;}
+.fnt_clr_darkblue{color:#0099ba;}
+.fnt_clr_red{color:Red;}
+.fnt_clr_grn{color:Green;}
+.fnt_clr_blck{color:Black;}
+.fnt_clr_lime{color:lime;}
+.bg_blck {background-color:#1b1e24;}
+
+.fnt_bold{font-weight: bold;} 
+
+
+
+.alti_cizili{text-decoration:underline;}
+.alti_cizisiz{text-decoration:none}
+
+.bg_clr_wht{background-color:White;}
+.bg_clr_liteblue{background-color:#57cde7;}
+.bg_clr_liteblue2{background-color:#d5f2f9;}
+.bg_clr_darkblue{background-color:#0099ba;}
+.bg_clr_silver{background-color:Silver;}
+.bg_clr_pink{background-color:Pink;}
+.bg_clr_yellow{background-color:Yellow;}
+.bg_clr_yellow2{background-color:#FFFFC0;}
+.bg_clr_lime{background-color:lime;}
+.bg_clr_red{background-color:red;}
+.bg_clr_pink2{background-color:#FDE8E3;}
+.bg_clr_lime{background-color:#80ff80;}
+.bg_clr_aqua{background-color:#c0ffff;}
+.bg_clr_grn{background-color:Green;}
+
+.txt_algn_cntr{text-align:center;}
+.txt_algn_lft{text-align:left;}
+.txt_algn_rght{text-align:right;}
+.txt_algn_jstfy{text-align:justify;}
+
+
+
+
+.uiButtonConfirm {
+background-image: url('../img/genel.png');
+background-repeat: no-repeat;
+background-position: 0 -98px;
+background-color: #5B74A8;
+border-color: #29447E #29447E #1A356E;
+}
+
+
+.uiButton, .uiButtonSuppressed:active, .uiButtonSuppressed:focus, .uiButtonSuppressed:hover {
+background-image: url('../img/genel.png');
+background-repeat: no-repeat;
+background-position: 0 -49px;
+background-color: #EEE;
+border: 1px solid #999;
+border-bottom-color: #888;
+-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+cursor: pointer;
+display: -moz-inline-box;
+display: inline-block;
+font-size: 11px;
+font-weight: bold;
+line-height: normal !important;
+padding: 2px 6px;
+text-align: center;
+text-decoration: none;
+vertical-align: top;
+white-space: nowrap;
+}
+
+
+.opacity1
+{
+ /*background-color: black;*/
+-ms-filter: alpha(opacity=30);
+opacity: 0.3;
+filter:alpha(opacity=60); /* For IE8 and earlier */
+}
+
+
+.td_bottom
+{
+
+	background-image:url('../img/bg_2.png');
+}
+
+.tbl_islem_title
+{
+	background-image: url('../img/bg_1.png');
+	color: #000000;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+
+/*marquee table tbody tr td
+{
+    width:100%;
+    }
+    
+    marquee table tbody tr td span
+{
+    width:100%;
+    }

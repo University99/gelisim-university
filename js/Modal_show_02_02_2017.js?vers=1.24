@@ -1,0 +1,32 @@
+// JScript File
+
+
+var img_pnldosya_ac;
+
+
+
+var Modal_Show = {
+
+     gvShow_Panel: function (sPanelId, sTableId, bVisible, ileft_Arti) {
+         var panel = Hy_libs.gfGet_ElementById(sPanelId);
+         var tablo = Hy_libs.gfGet_ElementById(sTableId);
+         var xy = Hy_libs.gf_FindPos(tablo);
+        if (bVisible == true) {
+            window.document.documentElement.scrollTop = 0;
+            panel.style.left = xy[0] + ileft_Arti + 'px';
+            panel.style.top = xy[1] -35 + 'px';
+            panel.style.visibility = 'visible';
+            panel.style.display = 'block';
+            
+            $(panel).css('display', 'none');
+            $(panel).slideDown('slow');
+        }
+        else {
+            $(panel).slideUp('slow');          
+
+        }
+
+    }
+
+
+}

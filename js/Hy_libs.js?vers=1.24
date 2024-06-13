@@ -1,0 +1,352 @@
+
+var Hy_libs = {
+
+
+    gvMyDoPostBack: function (sSender, sArgument) {
+        __doPostBack(sSender, sArgument);
+    },
+    gvShowHide_Control: function (sCtrlId, bVisible) {
+        var ctrl = this.gfGet_ElementById(sCtrlId);
+        if (ctrl) {
+            ctrl.style.visibility = (bVisible == true ? 'visible' : 'hidden');
+            ctrl.style.display = (bVisible == true ? 'block' : 'none');
+        }
+    },
+    gvShow_TableRows: function (sTableId, aRowNumbers) {
+        this.gfShowHide_TableRows(sTableId, false);
+        var oTable;
+        try {
+            this.gfShowHide_TableRows(sTableId, false);
+
+            oTable = this.gfGet_ElementById(sTableId);
+            for (var i = 0; i < aRowNumbers.length; i++) {
+                var oRow = oTable.rows[1];
+                if (oRow) {
+                    alert(oRow);
+                    oRow.style.visibility = 'visible';
+                    oRow.style.display = 'block';
+                }
+            }
+        }
+        catch (err) {
+            alert(err + '(gvShowHide_TableRows)');
+        }
+    },
+    gvShowHide_TableRows: function (sTableId, bShow) {
+        var oTable;
+        try {
+            oTable = this.gfGet_ElementById(sTableId);
+            for (var i = 0; i < oTable.rows.length; i++) {
+                oTable.rows[i].style.visibility = (bShow == true ? 'visible' : 'hidden');
+                oTable.rows[i].style.display = (bShow == true ? 'block' : 'none');
+            }
+        }
+        catch (err) {
+            alert(err + '(gvShowHide_TableRows)');
+        }
+    },
+    gvChange_TextboxCase: function (sTextboxId, bMakeUpper) {
+        try {
+            var oTxt = this.gfGet_ElementById(sTextboxId);
+            oTxt.value = new String(oTxt.value);
+            oTxt.value = (bMakeUpper == true ? oTxt.value.toUpperCase() : oTxt.value.toLowerCase());
+            return true;
+        }
+        catch (err) {
+            alert(err + '(gvChange_TextboxCase)');
+        }
+    },
+    gf_IsNumericText: function (sValue, sSeparator) {
+        var sayilar = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', sSeparator);
+        var deger = sValue;
+        var c;
+        var bulundu = new Boolean();
+        var bReturn = false;
+        try {
+            for (var i = 0; i < deger.length; i++) {
+                bulundu = false;
+                c = new String();
+                c = deger.charAt(i);
+                for (var z = 0; z < sayilar.length; z++) {
+                    if (c == sayilar[z]) {
+                        bulundu = true;
+                        break;
+                    }
+                }
+                if (bulundu == false) {
+                    bReturn = false;
+                    return bReturn;
+                }
+            }
+            bReturn = true;
+        }
+        catch (err) {
+            return false;
+        }
+        return bReturn;
+    },
+    gf_FindPos: function (obj) {
+        var curleft = curtop = 0;
+        if (obj.offsetParent) {
+            curleft = obj.offsetLeft
+            curtop = obj.offsetTop
+            while (obj = obj.offsetParent) {
+                curleft += obj.offsetLeft
+                curtop += obj.offsetTop
+            }
+        }
+        return [curleft, curtop];
+    },
+    gf_IsAnyInputCheckboxChecked: function (sMessage) {
+        var aInputs = document.getElementsByTagName('input');
+        for (i = 0; i < aInputs.length; i++) {
+            if (aInputs[i].type == 'checkbox') {
+                if (aInputs[i].checked)
+                { return true; }
+            }
+        }
+        alert(sMessage);
+        return false;
+    },
+    gf_IsAnyInputCheckboxChecked_1: function (sAttr_Name, sAttr_Value, sMessage) {
+        var aInputs = document.getElementsByTagName('input');
+        for (i = 0; i < aInputs.length; i++) {
+            if (aInputs[i].type == 'checkbox') {
+                if (aInputs[i].getAttribute(sAttr_Name) == sAttr_Value) {
+                    if (aInputs[i].checked)
+                    { return true; }
+                }
+            }
+        }
+        alert(sMessage);
+        return false;
+    },
+    gf_IsAnyInputCheckboxChecked_2: function (sCheckboxName, sMessage) {
+        var sCbName = new String(sCheckboxName);
+        var aCheckboxes = document.getElementsByName(sCbName);
+        for (i = 0; i < aCheckboxes.length; i++) {
+            if (aCheckboxes[i].type == 'checkbox') {
+                if (aCheckboxes[i].checked)
+                { return true; }
+            }
+        }
+        alert(sMessage);
+        return false;
+    },
+    gf_IsAnyInputRadioChecked: function (sMessage) {
+        var aInputs = document.getElementsByTagName('input');
+        for (i = 0; i < aInputs.length; i++) {
+            if (aInputs[i].type == 'radio') {
+                if (aInputs[i].checked)
+                { return true; }
+            }
+        }
+        alert(sMessage);
+        return false;
+    },
+    gf_IsAnyInputRadioChecked_1: function (sAttr_Name, sAttr_Value, sMessage) {
+        var aInputs = document.getElementsByTagName('input');
+        for (i = 0; i < aInputs.length; i++) {
+            if (aInputs[i].type == 'radio') {
+                if (aInputs[i].getAttribute(sAttr_Name) == sAttr_Value) {
+                    if (aInputs[i].checked)
+                    { return true; }
+                }
+            }
+        }
+        alert(sMessage);
+        return false;
+    },
+    gf_IsAnyInputRadioChecked_2: function (sRadioName, sMessage) {
+        var ctlName = new String(sRadioName);
+        var radios = document.getElementsByName(ctlName);
+        for (i = 0; i < radios.length; i++) {
+            if (radios[i].type == 'radio') {
+                if (radios[i].checked)
+                { return true; }
+            }
+        }
+        alert(sMessage);
+        return false;
+    },
+    gfShow_ModalDialog: function (sURL, iWidth, iHeight) {
+        window.showModalDialog(sURL, 'modaldialog', 'center:yes;dialogWidth:' + iWidth + 'px;dialogHeight:' + iHeight + 'px;status:no;resizable:no;help:no;dialogHide:yes');
+    },
+    gfClose_ModalDialog: function () {
+        self.opener = this;
+        self.close();
+    },
+    gf_XBrowserAddHandler: function (target, eventName, handlerName) {
+        try {
+            if (target.addEventListener) {
+                target.addEventListener(eventName, handlerName, false);
+            }
+            else if (target.attachEvent) {
+                target.attachEvent("on" + eventName, handlerName);
+            }
+            else {
+                target["on" + eventName] = handlerName;
+            }
+            return true;
+        }
+        catch (err) {
+            alert(err + '(gf_XBrowserAddHandler)');
+            return false;
+        }
+
+
+    },
+    gf_SetFocus: function (sCtrlID) {
+        try {
+            var ctl = this.gfGet_ElementById(sCtrlID);
+            ctl.focus();
+            return true;
+        }
+        catch (err) {
+            alert(err + '(gf_SetFocus)');
+            return false;
+        }
+
+    },
+    gfGet_AjaxObject: function () {
+        try {
+            var sBrowser = this.gf_WhichBrowser();
+            var xmlHttp = null;
+            switch (sBrowser) {
+                case 'IE':
+                    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+                    break;
+
+                case 'NN':
+                    xmlHttp = new XMLHttpRequest();
+                    break;
+
+                default:
+                    xmlHttp = null;
+            }
+        }
+        catch (err) {
+            xmlHttp = null;
+            alert(err + '(gfGet_AjaxObject)');
+        }
+        return xmlHttp;
+    },
+    gfGet_PressedKeyNumber: function (oEvent) {
+        var iKeyPressed;
+        try {
+            if (window.event)
+            { iKeyPressed = oEvent.keyCode; }
+            else
+            { iKeyPressed = oEvent.which; }
+        }
+        catch (err) {
+            iKeyPressed = -1;
+            alert(err + '(gfGet_PressedKeyNumber)');
+        }
+        return iKeyPressed;
+    },
+    //sText parametresinde gelen metin icinde 
+    //aChars dizisindeki karakterleri bulur ve sText den çýkarýr.
+    gf_ClearText: function (sText, bFull) {
+        var oReturn = new String();
+
+        var aChars;
+        if (bFull == true) {
+            aChars = new Array("'");
+        }
+        else {
+            aChars = new Array("'", "\"", "!", "+", "$", "%", "&", "/", "?", "-", "_", "{", "}", "[", "]", "<", ">", "|", "#", ",", ";", "*", "\\", ".", "=", "(", ")", "|", ":");
+        }
+
+        var iCnt = 0;
+        try {
+            for (var i = 0; i < sText.length; i++) {
+                iCnt = 0;
+                for (var z = 0; z < aChars.length; z++) {
+                    if (sText.substr(i, 1) == aChars[z]) {
+                        iCnt += 1;
+                    }
+                }
+                if (iCnt == 0) {
+                    oReturn += sText.substr(i, 1);
+                }
+            }
+        }
+        catch (err) {
+            alert(err + '(gf_ClearText)');
+            oReturn = '';
+        }
+        return oReturn;
+    },
+    gv_OpenPopUpWindow: function (sURL, iWidth, iHeight, sStatus, sresizable, sLocation) {
+        var newWindow = window.open(sURL, 'yenipencere', 'toolbar=no,menubar=no,location=' + sLocation + ',resizable=' + sresizable + ',scrollbars=yes,status=' + sStatus + ',width=' + iWidth + ',height=' + iHeight)
+    },
+    gf_Confirm: function (sMsg) {
+        var newstring = new String(sMsg);
+        if (confirm(newstring)) {
+            return true;
+        }
+        return false;
+    },
+    gv_ChangeWindowLocation: function (sURL) {
+        window.location.href = new String(sURL);
+    },
+    gf_MessageBoxShow: function (sMsg) {
+        alert(sMsg);
+        return false;
+    },
+    gv_MessageBoxShow: function (sMsg) {
+        if (sMsg != null) {
+            alert(sMsg);
+        }
+        else {
+            alert('Error: There is no message to show');
+        }
+    },
+    gfGet_ElementById: function (sId) {
+        return document.all ? document.all[sId] : document.getElementById(sId);
+    },
+    gf_WhichBrowser: function () {
+        var oReturn = '';
+        var browser = new String(navigator.appName);
+        try {
+            if (browser.indexOf("Microsoft") > -1)
+            { oReturn = 'IE'; }
+            else if (browser.indexOf("Netscape") > -1)
+            { oReturn = 'NN'; } //Netscape - Firefox
+            else
+            { oReturn = ''; }
+        }
+        catch (err) {
+            alert(err + '(gf_WhichBrowser)');
+            oReturn = '';
+        }
+        return oReturn;
+    },
+    gv_ShowDateTime: function (lblID) {
+        try {
+            Stamp = new Date();
+            var Hours;
+            var Minutes;
+            var Seconds;
+            var Time;
+            Hours = Stamp.getHours();
+            Minutes = Stamp.getMinutes();
+            Seconds = Stamp.getSeconds();
+            if (Seconds.length == 0)
+                Seconds = "0" + Seconds;
+            Time = Stamp.toLocaleTimeString() + " " + (Hours > 11 ? 'pm' : 'am');
+
+            var Tarih;
+            Tarih = Stamp.toDateString();
+
+            var saatlabel = this.gfGet_ElementById(lblID);
+            saatlabel.innerHTML = Tarih + " - " + Time;
+        }
+        catch (err) {
+
+        }
+        setTimeout("KrncJsLib.gv_ShowDateTime('" + lblID + "')", 1000);
+    }
+
+}

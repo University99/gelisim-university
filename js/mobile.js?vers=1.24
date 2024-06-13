@@ -1,0 +1,64 @@
+﻿//var isMobile = {
+//    Android: function () {
+//        return navigator.userAgent.match(/Android/i);
+//    },
+//    iOS: function () {
+//        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+//    }
+
+//};
+
+
+//if (isMobile.Android()) {
+//    $('.ust_kisim').css({ 'display': 'none' });
+//    $('.sol_kisim').css({ 'margin-top': '0px' });
+//    $('.sol_menu ul li a').css({ 'font-size': '22px' });
+//    $('.sol_menu ul li a').css({ 'height': '50px' });
+//    $('.sol_menu ul li ul li a').css({ 'font-size': '18px' });
+//    $('.sol_menu ul li span img').css({ 'margin-top': '5px' });
+//    $('.sol_menu ul li ul li a').css({ 'width': '150px' });
+//}
+//else {
+
+//}
+
+//if (isMobile.iOS()) {
+//    $('.ust_kisim').css({ 'display': 'none' });
+//    $('.sol_kisim').css({ 'margin-top': '0px' });
+//    $('.sol_menu ul li a').css({ 'font-size': '22px' });
+//    $('.sol_menu ul li a').css({ 'height': '50px' });
+//    $('.sol_menu ul li ul li a').css({ 'font-size': '18px' });
+//    $('.sol_menu ul li span img').css({ 'margin-top': '5px' });
+//    $('.sol_menu ul li ul li a').css({ 'width': '150px' });
+//}
+//else {
+
+//}
+
+
+function detectmob() {
+    if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+    ) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+$(document).ready(function () {
+    if (detectmob()) {
+        if ($(window).width() < 1200) {
+            $("#form1").append("<div id='FooterFixed'></div>")
+            $("#FooterFixed").append($("#Top_Menu_ust_kisim > .hizli_ulasim").html())
+            $("#Top_Menu_ust_kisim > .hizli_ulasim").hide();
+            $("#FooterFixed > .hizli_menu").attr("style", "position: absolute; bottom: 0; width: 100% !important; background: #fff; z-index: 99999;");
+            $(".ic_sayfa").attr("style", "margin-bottom: 115px");
+        }
+    }
+});
+

@@ -1,0 +1,84 @@
+﻿$(document).ready(function () {
+    //Usage
+    $(".sol_menu ul li").menu({
+        itemLink: 1
+    });
+    $(".menu ul li").menu({
+        itemLink: 1
+    });
+});
+
+$(document).ready(function () {
+    $('.hizli_menu ul li').click(function () {
+        $('.hizli_menu ul li').removeClass('active');
+        $(this).addClass('active');
+    });
+});
+
+$(document).ready(function () {
+    $(".duyuru strong").css("color", "black", "font-size", "12px", "font-family", "'Open Sans'", "text-align", "left")
+    $(".duyuru span").css("color", "black", "font-size", "12px", "font-family", "'Open Sans'", "text-align", "left")
+    $(".duyuru p").css("color", "black", "font-size", "12px", "font-family", "'Open Sans'", "text-align", "left")
+    $(".ic_sayfa table tr").css("text-align", "center")
+    $(".ic_sayfa table tr").css("text-align", "center")
+    $(".ic_sayfa table").css("font-size", "12px");
+});
+
+$(document).ready(function () {
+    function syfHizala2() {
+        var winW = ($(window).width());
+        var sol2 = winW - $(".sol_kisim").width();
+        $(".container").css("width", sol2);
+    }
+    syfHizala2();
+    $(window).resize(function () { syfHizala2(); });
+
+    function syfHizala1() {
+        var winW1 = ($(window).width());
+        var sol1 = winW1 - $(".logo").width();
+        var ust = sol1 - $(".ogrenci").width();
+        //$(".hizli_menu").css("width", ust);
+    }
+    syfHizala1();
+    $(window).resize(function () { syfHizala1(); });
+
+    function syfHizala3() {
+        var winW3 = ($(window).height());
+        var alt = winW3 - $(".ust_kisim").height();
+        $(".container").css("height", alt);
+    }
+    syfHizala3();
+    $(window).resize(function () { syfHizala3(); });
+
+    function syfHizala4() {
+        var winW4 = ($(window).height());
+        var alt5 = winW4 - $(".ust_kisim").height();
+        $(".sol_kisim").css("height", alt5);
+    }
+    syfHizala4();
+    $(window).resize(function () { syfHizala4(); });
+
+    function syfHizala8() {
+        var winW8 = ($(window).width());
+        var sol8 = winW8 - $(".sol_kisim").width();
+        $(".ps-scrollbar-x-rail").css("width", sol8);
+    }
+    syfHizala8();
+    $(window).resize(function () { syfHizala8(); });
+
+    //function syfHizala9() {
+    //    var winW2 = ($(window).width());
+    //    var sol10 = winW2 - $(".sol_kisim").width();
+    //    var sol9 = sol10 - $(".arka_kisim").width();
+
+    //    //$(".ic_sayfa table").css("width", sol10);
+    //    //$(".ic_sayfa tbody").css("width", sol10);
+    //    //$(".ic_sayfa tr").css("width", sol10);
+
+    //    //$(".ic_sayfa tbody").css("display", "block");
+    //    //$(".ic_sayfa tr").css("display", "table-row");
+    //}
+    //syfHizala9();
+    //$(window).resize(function () { syfHizala9(); });
+
+});
